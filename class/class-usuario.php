@@ -57,7 +57,6 @@
 				$_SESSION['id']=$fila['id'];
 				$_SESSION['nombre']=$fila['user'];
 				$respuesta['loggedin'] = 1;
-				$respuesta["mensaje"]="tiene acceso";
 				
 			}
 			else {
@@ -66,7 +65,7 @@
 				$_SESSION['status']=false;
 				$respuesta['loggedin'] = 0;
 				$respuesta["mensaje"]="Usuario o Contraseña invalidos";
-				}	  
+			}	  
 			echo json_encode($respuesta);
 		 }
 

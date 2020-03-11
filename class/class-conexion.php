@@ -10,7 +10,7 @@
 		private $esConectado=false;
 		public function __construct(
 			$host =  "127.0.0.1",
-			$database =  "simpah2",
+			$database =  "test",
 			$usuario =  "root",
 			$pass =  "",
 			$port = 3306,

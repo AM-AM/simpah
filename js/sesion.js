@@ -18,8 +18,7 @@ function iniciarSesion(){
       }
       else {
        
-          window.location="admin/inicioAdmin.html";
-      
+          window.location="administrador.php";
       }
     },
     error:function(e){
