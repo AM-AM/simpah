@@ -11,18 +11,15 @@
 <body>
     
             
-       <div class="container">
-<h2>Cargar e importar archivo excel a MySQL</h2>
-<form name="importa" method="post" action="tablas/cargar.php" enctype="multipart/form-data" >
-  <div class="col-xs-4">
-    <div class="form-group">
-      <input type="file" class="filestyle" data-buttonText="Seleccione archivo" name="excel">
+ <div class="container">
+           <form method="POST" action="tablas/cargar.php" enctype="multipart/form-data">
+    <div>
+      <span>Upload a File:</span>
+      <input type="file" name="uploadedFile" />
     </div>
-  </div>
-  <div class="col-xs-2">
-    <input class="btn btn-default btn-file" type='submit' name='enviar'  value="Importar"  />
-  </div>
-</form>
+ 
+    <input type="submit" name="uploadBtn" value="Upload" />
+  </form>
 </div>
             <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>

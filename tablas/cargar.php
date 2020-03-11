@@ -9,14 +9,31 @@
 <body>
     <?php
 
-        $nombre_archivo = $_FILES['excel']['name'];
-        if (move_uploaded_file($_FILES['excel']['tmp_name'],  $nombre_archivo)){
-            echo "El archivo ha sido cargado correctamente.";
-         }
-         else{
-            echo "Ni papass";
-         }
-    
+        if (isset($_POST['uploadBtn']) && $_POST['uploadBtn'] == 'Upload') {
+
+        
+            $fileTmpPath = $_FILES['uploadedFile']['tmp_name'];
+            $fileName = $_FILES['uploadedFile']['name'];
+            $fileSize = $_FILES['uploadedFile']['size'];
+            $fileNameCmps = explode(".", $fileName);
+            $fileExtension = strtolower(end($fileNameCmps));
+
+
+            $newFileName = md5(time().$fileName).'.'.$fileExtension;
+
+            
+            if(move_uploaded_file($fileTmpPath, $newFileName))
+            {
+              $message ='File is successfully uploaded.';
+            }
+            else
+            {
+              $message = 'Error';
+            }
+
+           echo $message;
+
+        }
     
     
     ?>
