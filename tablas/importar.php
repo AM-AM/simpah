@@ -15,10 +15,10 @@
            <form method="POST" action="tablas/cargar.php" enctype="multipart/form-data">
     <div>
       <span>Upload a File:</span>
-      <input type="file" name="uploadedFile" />
+      <input type="file" name="archivo" />
     </div>
  
-    <input type="submit" name="uploadBtn" value="Upload" />
+    <input type="submit" name="archivo" value="Upload" />
   </form>
 </div>
             <!-- Bootstrap core JavaScript-->
