@@ -9,7 +9,7 @@
 		private $puerto;
 		private $esConectado=false;
 		public function __construct(
-			$host =  "127.0.0.1",
+			$host =  "localhost",
 			$database =  "simpah2",
 			$usuario =  "root",
 			$pass =  "",

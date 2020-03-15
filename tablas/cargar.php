@@ -20,12 +20,12 @@
     }else{
         echo "hubo un error <br/>";
     }*/
-
+                                /*                                          DESDE AQUI
      @move_uploaded_file($_FILES["archivo"]["tmp_name"],$archivo);
 
-     $linea = 0;
+     $linea = 0;                                                                HASTA AQUI */
 //Abrimos nuestro archivo
-    $archivo = fopen($archivo, "r");
+   /* $archivo = fopen($archivo, "r");                 DESDE AQUI
     
     //Lo recorremos
     while ($data = fgetcsv ($archivo, 1000, ";")) {
@@ -38,7 +38,7 @@
         }
 
       break;
-    }
+    }                                                                       HASTA AQUI*/ 
 
 //Cerramos el archivo
     /*
@@ -61,7 +61,30 @@
          }
 
 */
+//VAMO A PROBAAH
 
-
+require '../class/PHPExcel-1.8/Classes/PHPExcel/IOFactory.php';
+require '../class/class-conexion.php';
+$nombreArchivo='prueba.xlsx';
+$objPHPExcel = PHPExcel_IOFactory::load($archivo);
+$objPHPExcel->setActiveSheetIndex(0);
+$rows = $objPHPExcel->setActiveSheetIndex(0)->getHighestRow();
+$con=new Conexion();
+$cont=0;
+for($i=2;$i<$rows;$i++){
+        $a=$objPHPExcel->getActiveSheet()->getCell('A'.$i)->getCalculatedValue();
+        $b=$objPHPExcel->getActiveSheet()->getCell('B'.$i)->getCalculatedValue();
+        $c=$objPHPExcel->getActiveSheet()->getCell('C'.$i)->getCalculatedValue();
+        $d=$objPHPExcel->getActiveSheet()->getCell('D'.$i)->getCalculatedValue();
+        $e=$objPHPExcel->getActiveSheet()->getCell('E'.$i)->getCalculatedValue();
+        $f=$objPHPExcel->getActiveSheet()->getCell('F'.$i)->getCalculatedValue();
+//echo $a, $b,$c,$d,$e,$f;
+$sql="INSERT INTO PRUEBA(a,b,c,d,e,f) VALUES('$a','$b','$c','$d','$e','$f')";
+if($result=$con->ejecutarConsulta($sql)){
+    $cont=$cont+1;
+};
+}
+$salida='Se agregaron '.$cont.' registros';
+echo $salida;
 
 ?>
