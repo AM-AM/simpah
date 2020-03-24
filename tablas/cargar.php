@@ -2,28 +2,9 @@
 include ("../class/class-datos.php");	
 include ("../class/class-conexion.php");
 
-
-//nos permite recepcionar una variable que si exista y que no sea null
-  //  require_once("conexion.php");
-    //require_once("functions.php");
-
  $archivo = $_FILES["archivo"]["name"];
 if (!empty($archivo)) {
     $conexion=new Conexion();
-    //echo $archivo."esta en la ruta temporal: " .$archivo_copiado;
-/*
-    $lines = file($archivo);
-    $utf8_lines = array_map('utf8_encode',$lines);
-
-    $array = array_map('str_getcsv',$utf8_lines);
-
-    echo $array;
-
-    if (copy($archivo ,$archivo_guardado )) {
-        echo "se copeo correctamente el archivo temporal a nuestra carpeta de trabajo <br/>";
-    }else{
-        echo "hubo un error <br/>";
-    }*/
                                                                           
         @move_uploaded_file($_FILES["archivo"]["tmp_name"],$archivo);
 
@@ -35,25 +16,17 @@ if (!empty($archivo)) {
 
             $num_campos = count($data)/14;
             for ($i = 0; $i < $num_campos; $i++) {
-                 $idCiudad = Datos::idCiudad($data[0], $conexion);
-                 
-                 $idMercado = Datos::idMercado($data[1], $conexion);
-                
-                 $idTipoProducto = Datos::idTipoProducto($data[2], $conexion);
-                
-                 $idTamanio = Datos::idTamanio($data[9], $conexion);
-                
-                 $idProducto = Datos::idProducto(utf8_encode($data[7]),$idTamanio, $conexion);
-                
-                 $idOrigen = Datos::idOrigen(utf8_encode($data[8]), $conexion);
-                
-                 $idUnidadVenta = Datos::idUnidadVenta($data[10],$conexion);
-                
-                $idMoneda = Datos::idMoneda($data[11],$conexion);
-                
+                $idCiudad = Datos::idCiudad(utf8_encode($data[0]), $conexion);
+                $idMercado = Datos::idMercado(utf8_encode($data[1]),$idCiudad, $conexion);
+                $idTipoProducto = Datos::idTipoProducto(utf8_encode($data[2]), $conexion);
+                $idTamanio = Datos::idTamanio(utf8_encode($data[9]), $conexion);
+                $idProducto = Datos::idProducto(utf8_encode($data[7]),$idTamanio, $conexion);
+                $idOrigen = Datos::idOrigen(utf8_encode($data[8]), $conexion);
+                $idUnidadVenta = Datos::idUnidadVenta(utf8_encode($data[10]),$conexion);
+                $idMoneda = Datos::idMoneda(utf8_encode($data[11]),$conexion);
                 $objeto_Date = date_create_from_format('Y-m-d', $data[3]."-".$data[4]."-".$data[5]);
                 $fecha = date_format($objeto_Date,"Y/m/d");
-                   
+               
                 Datos::insertRangoPrecios($fecha,$data[12],$data[13],$idProducto, $idUnidadVenta,$idMoneda, $idMercado,  $idOrigen, $conexion );
             }
         }                                                                       

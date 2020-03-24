@@ -18,7 +18,7 @@
       <input type="file" name="archivo" />
     </div>
  
-    <input type="submit" name="archivo" value="Upload" />
+    <input type="submit" name="archivo" id = "cargar" value="Upload" />
   </form>
 </div>
             <!-- Bootstrap core JavaScript-->
