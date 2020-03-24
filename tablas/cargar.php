@@ -1,11 +1,15 @@
 <?php
+include ("../class/class-datos.php");	
+include ("../class/class-conexion.php");
+
 
 //nos permite recepcionar una variable que si exista y que no sea null
   //  require_once("conexion.php");
     //require_once("functions.php");
 
-    $archivo = $_FILES["archivo"]["name"];
-
+ $archivo = $_FILES["archivo"]["name"];
+if (!empty($archivo)) {
+    $conexion=new Conexion();
     //echo $archivo."esta en la ruta temporal: " .$archivo_copiado;
 /*
     $lines = file($archivo);
@@ -20,25 +24,48 @@
     }else{
         echo "hubo un error <br/>";
     }*/
-                                /*                                          DESDE AQUI
-     @move_uploaded_file($_FILES["archivo"]["tmp_name"],$archivo);
+                                                                          
+        @move_uploaded_file($_FILES["archivo"]["tmp_name"],$archivo);
 
-     $linea = 0;                                                                HASTA AQUI */
-//Abrimos nuestro archivo
-   /* $archivo = fopen($archivo, "r");                 DESDE AQUI
+        //Abrimos nuestro archivo
+        $archivo = fopen($archivo, "r");                
+        //Lo recorremos
+        
+        while ($data = fgetcsv ($archivo, 100000, ";")) {
+
+            $num_campos = count($data)/14;
+            for ($i = 0; $i < $num_campos; $i++) {
+                 $idCiudad = Datos::idCiudad($data[0], $conexion);
+                 $idMercado = Datos::idMercado($data[1], $conexion);
+                 $idTipoProducto = Datos::idTipoProducto($data[2], $conexion);
+                 $idTamanio = Datos::idTamanio($data[9], $conexion);
+                 $idProducto = Datos::idProducto(utf8_encode($data[7]),$idTamanio, $conexion);
+                 $idOrigen = Datos::idOrigen(utf8_encode($data[8]), $conexion);
+                 $idUnidadVenta = Datos::idUnidadVenta($data[10],$conexion);
+                 $idMoneda = Datos::idMoneda($data[11],$conexion);
+
+                  $fecha = $data[3]."/".$data[4]."/".$data[5];
+               
+                   
+                  Datos::insertRangoPrecios($fecha,$data[12],$data[13],$idProducto, $idUnidadVenta,$idMoneda, $idMercado,  $idOrigen, $conexion );
+            }
+        }                                                                       
     
-    //Lo recorremos
-    while ($data = fgetcsv ($archivo, 1000, ";")) {
 
-        $num_campos = count($data);
-
-        for ($i = 0; $i < $num_campos; $i++) {
-           echo $data[$i];
-           echo "\n";
-        }
-
-      break;
-    }                                                                       HASTA AQUI*/ 
+}else{
+    echo '<script language="javascript"> var mensaje = confirm("No a seleccionada ningun archivo");
+        
+        
+            if (mensaje) {
+                window.location="../administrador.php";
+            }
+            else {
+                window.location="../administrador.php";
+            }
+        
+        </script>';
+        
+}
 
 //Cerramos el archivo
     /*
@@ -60,7 +87,7 @@
             }
          }
 
-*/
+/*
 //VAMO A PROBAAH
 
 require '../class/PHPExcel-1.8/Classes/PHPExcel/IOFactory.php';
@@ -87,4 +114,5 @@ if($result=$con->ejecutarConsulta($sql)){
 $salida='Se agregaron '.$cont.' registros';
 echo $salida;
 
+*/
 ?>

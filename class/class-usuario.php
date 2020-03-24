@@ -44,7 +44,7 @@
 		public static function verificarUsuario($conexion,$nombre_usuario,$password){
 			#consulta
 
-			$sql="SELECT id , user FROM user WHERE user = '$nombre_usuario' and pass = '$password'";
+			$sql="SELECT id , first_name FROM tbl_usuarios WHERE first_name = '$nombre_usuario' and pass = '$password'";
 			
 			#resultado de la consulta				
 			$resultado=$conexion->ejecutarConsulta($sql);
@@ -55,7 +55,7 @@
 				session_start();
 				$_SESSION['status']=true;
 				$_SESSION['id']=$fila['id'];
-				$_SESSION['nombre']=$fila['user'];
+				$_SESSION['nombre']=$fila['first_name'];
 				$respuesta['loggedin'] = 1;
 				
 			}
