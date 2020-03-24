@@ -36,18 +36,25 @@ if (!empty($archivo)) {
             $num_campos = count($data)/14;
             for ($i = 0; $i < $num_campos; $i++) {
                  $idCiudad = Datos::idCiudad($data[0], $conexion);
+                 
                  $idMercado = Datos::idMercado($data[1], $conexion);
+                
                  $idTipoProducto = Datos::idTipoProducto($data[2], $conexion);
+                
                  $idTamanio = Datos::idTamanio($data[9], $conexion);
+                
                  $idProducto = Datos::idProducto(utf8_encode($data[7]),$idTamanio, $conexion);
+                
                  $idOrigen = Datos::idOrigen(utf8_encode($data[8]), $conexion);
+                
                  $idUnidadVenta = Datos::idUnidadVenta($data[10],$conexion);
-                 $idMoneda = Datos::idMoneda($data[11],$conexion);
-
-                  $fecha = $data[3]."/".$data[4]."/".$data[5];
-               
+                
+                $idMoneda = Datos::idMoneda($data[11],$conexion);
+                
+                $objeto_Date = date_create_from_format('Y-m-d', $data[3]."-".$data[4]."-".$data[5]);
+                $fecha = date_format($objeto_Date,"Y/m/d");
                    
-                  Datos::insertRangoPrecios($fecha,$data[12],$data[13],$idProducto, $idUnidadVenta,$idMoneda, $idMercado,  $idOrigen, $conexion );
+                Datos::insertRangoPrecios($fecha,$data[12],$data[13],$idProducto, $idUnidadVenta,$idMoneda, $idMercado,  $idOrigen, $conexion );
             }
         }                                                                       
     
