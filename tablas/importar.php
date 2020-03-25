@@ -18,10 +18,25 @@
       <input type="file" name="archivo" />
     </div>
  
-    <input type="submit" name="archivo" value="Upload" />
+    <input onclick="move()" type="submit" name="archivo" value="Upload" />
   </form>
+  
+
+
+
+<div  id= "progress-bar"class="d-flex align-items-center" style="visibility: hidden; width:500px;height:500px; margin:auto;" >
+  <strong>Procesando...  </strong>
+  <div class="spinner-border ml-auto" role="status" aria-hidden="true" style="width:400px;height:400px;" ></div>
 </div>
+
             <!-- Bootstrap core JavaScript-->
+  
+  <script>
+    function move(){
+      var progressbar = document.getElementById("progress-bar");
+      progressbar.style.visibility='visible';
+    }
+  </script>
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 

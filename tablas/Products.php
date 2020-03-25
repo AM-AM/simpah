@@ -7,7 +7,6 @@ $carpeta="files/";
 opendir($carpeta);
 $destino=$carpeta.$_FILES['archivo']['name'];
 copy($_FILES['archivo']['tmp_name'],$destino);
-echo "Archivo subido con éxito";
 $ruta = $_FILES["archivo"]["name"];
 //$ruta="prueba.xlsx";
 $reader=\PhpOffice\PhpSpreadsheet\IOFactory::createReader("Xlsx");
@@ -20,7 +19,6 @@ foreach($sheet->getRowIterator() as $row){
     $separadorf="'";
     $cellIterator=$row->getCellIterator();
     $cellIterator->setIterateOnlyExistingCells(false);
-    echo '<br>';
     $separador="'";
     $filaI="";
     foreach($cellIterator as $cell){
@@ -52,11 +50,10 @@ foreach($sheet->getRowIterator() as $row){
      $cont=$cont+1; 
     }  
 }
-echo 'Se agregaron '.$cont.' registros';
 unlink($destino);
 
-echo 'Ejecutando Procedimeinto almacenado...';
 $proc='call data';
 $con->ejecutarConsulta($proc);
-
+$previous = $_SERVER['HTTP_REFERER'];
+header('Location:'.$previous);
 ?>

@@ -6,7 +6,7 @@
 
     $archivo = $_FILES["archivo"]["name"];
 
-    //echo $archivo."esta en la ruta temporal: " .$archivo_copiado;
+    echo $archivo."esta en la ruta temporal: " .$archivo_copiado;
 /*
     $lines = file($archivo);
     $utf8_lines = array_map('utf8_encode',$lines);
